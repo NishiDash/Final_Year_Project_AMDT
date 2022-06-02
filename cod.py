@@ -23,7 +23,8 @@ def cod(file1,attribute):
         sheet_obj1 = obj["output_"+str(today)+"_COD"]
 
         sheet_obj.insert_cols(0,amount=1)
-        sheet_obj.insert_cols(4,amount=2)
+        sheet_obj.insert_cols(4,amount=1)
+        sheet_obj.insert_cols(5,amount=1)
         sheet_obj.insert_cols(8,amount=1)
         # sheet_obj.insert_cols(9,amount=1) 
 
