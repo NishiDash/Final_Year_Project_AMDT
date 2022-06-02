@@ -91,7 +91,7 @@ def cod(file1,attribute):
             index4 = 'J'+str(j)
 
             formula1 = '=IF(ISNA(VLOOKUP(A'+str(j)+',E:J,6,FALSE)),"AWS id not in RAMP",IF(LEN(VLOOKUP(A'+str(j)+',E:J,6,FALSE))=0,"",VLOOKUP(A'+str(j)+',E:J,6,FALSE)))'
-            formula2 = '=if(ISNA(VLOOKUP(A'+str(j)+',E:J,6,FALSE)),"AWS id not in RAMP",if(len(VLOOKUP(A'+str(j)+',E:J,6,FALSE))=0,"",VLOOKUP(A'+str(j)+',E:J,6,FALSE)))'
+            formula2 = '=IF(ISNA(VLOOKUP(A'+str(j)+',E:H,4,FALSE)),"AWS id not in RAMP",IF(LEN(VLOOKUP(A'+str(j)+',E:H,4,FALSE))=0,"",VLOOKUP(A'+str(j)+',E:H,4,FALSE)))'
             formula3 = '=IF(G'+str(j)+'="NULL","",IF(G'+str(j)+'="","",IF(G'+str(j)+'="AWS id not in RAMP","AWS id not in RAMP",TEXT(DATE(YEAR(G'+str(j)+'),MONTH(G'+str(j)+'),DAY(G'+str(j)+')),"m/d/yyyy"))))'
             formula4 = '=IF(I'+str(j)+'="NULL","",IF(I'+str(j)+'="","",IF(I'+str(j)+'="AWS id not in RAMP","AWS id not in RAMP",TEXT(DATE(YEAR(I'+str(j)+'),MONTH(I'+str(j)+'),DAY(I'+str(j)+')),"m/d/yyyy"))))'
 
