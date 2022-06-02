@@ -32,10 +32,10 @@ def cod(file1,attribute):
         sheet_obj['A1']='TRIM_id'
         sheet_obj['D1']='Appropriate format of '+attribute
         sheet_obj['E1']='Trim_Turbine Serial Number'
-        sheet_obj['H1']='R_'+attribute+' wrt id'
-        sheet_obj['K1']=attribute+' wrt id'
-        sheet_obj['I1']='Appropriate format of R_'+attribute+' wrt id'
-        sheet_obj['L1']='Appropriate format of '+attribute+' wrt id'
+        sheet_obj['K1']='R_'+attribute+' wrt id'
+        sheet_obj['L1']=attribute+' wrt id'
+        sheet_obj['H1']='Appropriate format of R_'+attribute+' wrt id'
+        sheet_obj['J1']='Appropriate format of '+attribute+' wrt id'
         sheet_obj['M1']='R_'+attribute+'_Discrepancy'
         sheet_obj['N1']=attribute+'_Discrepancy'
         sheet_obj['O1']='ID in AWS?'
@@ -70,7 +70,6 @@ def cod(file1,attribute):
             
             formula1 = '=TRIM(B'+str(j)+')'
             formula2 = '=IF(C'+str(j)+'="NULL","",IF(C'+str(j)+'="","",IF(ISERROR(TEXT(DATE(YEAR(C'+str(j)+'),MONTH(C'+str(j)+'),DAY(C'+str(j)+')),"m/d/yyyy")),C'+str(j)+',TEXT(DATE(YEAR(C'+str(j)+'),MONTH(C'+str(j)+'),DAY(C'+str(j)+')),"m/d/yyyy"))))'
-            # =if(C'+str(j)+'="NULL","NULL",if(C'+str(j)+'="","",text(date(year(C'+str(j)+'),month(C'+str(j)+'),day(C'+str(j)+')),"m/d/yyyy")))'
             
             sheet_obj[index1]= formula1
             sheet_obj[index2]= formula2
@@ -80,21 +79,21 @@ def cod(file1,attribute):
             index2 = 'O'+str(j)
 
             formula1 = '=TRIM(F'+str(j)+')'
-            formula2 = '=if(ISNA(vlookup(E'+str(j)+',A:D,4,false)),"RAMP id not in AWS",if( len(vlookup(E'+str(j)+',A:D,4,false))=0,"",vlookup(E'+str(j)+',A:D,4,false) ))'
+            formula2 = '=IF(ISNA(VLOOKUP(E'+str(j)+',A:A,1,FALSE)),"RAMP id not in AWS",IF( LEN(VLOOKUP(E'+str(j)+',A:A,1,FALSE))=0,"",VLOOKUP(E'+str(j)+',A:A,1,FALSE)))' 
 
             sheet_obj[index1]=formula1
             sheet_obj[index2]=formula2    
             
         for j in range(2,n):
-            index1 = 'H'+str(j)
-            index2 = 'K'+str(j)
-            index3 = 'I'+str(j)
-            index4 = 'L'+str(j)
+            index1 = 'K'+str(j)
+            index2 = 'L'+str(j)
+            index3 = 'H'+str(j)
+            index4 = 'J'+str(j)
 
-            formula1 = '=if(ISNA(VLOOKUP(A'+str(j)+',E:G,3,FALSE)),"AWS id not in RAMP",if(len(VLOOKUP(A'+str(j)+',E:G,3,FALSE))=0,"",VLOOKUP(A'+str(j)+',E:G,3,FALSE)))'
+            formula1 = '=IF(ISNA(VLOOKUP(A'+str(j)+',E:J,6,FALSE)),"AWS id not in RAMP",IF(LEN(VLOOKUP(A'+str(j)+',E:J,6,FALSE))=0,"",VLOOKUP(A'+str(j)+',E:J,6,FALSE)))'
             formula2 = '=if(ISNA(VLOOKUP(A'+str(j)+',E:J,6,FALSE)),"AWS id not in RAMP",if(len(VLOOKUP(A'+str(j)+',E:J,6,FALSE))=0,"",VLOOKUP(A'+str(j)+',E:J,6,FALSE)))'
-            formula3 = '=if(H'+str(j)+'="NULL","NULL",if(H'+str(j)+'="","",if(H'+str(j)+'="AWS id not in RAMP","AWS id not in RAMP",text(date(year(H'+str(j)+'),month(H'+str(j)+'),day(H'+str(j)+')),"m/d/yyyy"))))'
-            formula4 = '=if(K'+str(j)+'="NULL","NULL",if(K'+str(j)+'="","",if(K'+str(j)+'="AWS id not in RAMP","AWS id not in RAMP",text(date(year(K'+str(j)+'),month(K'+str(j)+'),day(K'+str(j)+')),"m/d/yyyy"))))'
+            formula3 = '=IF(G'+str(j)+'="NULL","",IF(G'+str(j)+'="","",IF(G'+str(j)+'="AWS id not in RAMP","AWS id not in RAMP",TEXT(DATE(YEAR(G'+str(j)+'),MONTH(G'+str(j)+'),DAY(G'+str(j)+')),"m/d/yyyy"))))'
+            formula4 = '=IF(I'+str(j)+'="NULL","",IF(I'+str(j)+'="","",IF(I'+str(j)+'="AWS id not in RAMP","AWS id not in RAMP",TEXT(DATE(YEAR(I'+str(j)+'),MONTH(I'+str(j)+'),DAY(I'+str(j)+')),"m/d/yyyy"))))'
 
             sheet_obj[index1]=formula1
             sheet_obj[index2]=formula2  
@@ -104,8 +103,8 @@ def cod(file1,attribute):
         for j in range(2,n):
             index1 = 'M'+str(j)
             index2 = 'N'+str(j)
-            formula1 = '=if(I'+str(j)+'="AWS id not in RAMP","AWS id not in RAMP",if(AND(OR(D'+str(j)+'="",D'+str(j)+'="NULL"),OR(I'+str(j)+'="",I'+str(j)+'="NULL")),"matching",if(I'+str(j)+'="","",if(D'+str(j)+'=I'+str(j)+',"matching","not matching"))))'
-            formula2 = '=if(L'+str(j)+'="AWS id not in RAMP","AWS id not in RAMP",if(M'+str(j)+'="matching","",if(AND(OR(D'+str(j)+'="",D'+str(j)+'="NULL"),OR(L'+str(j)+'="",L'+str(j)+'="NULL")),"matching",if(L'+str(j)+'="","",if(D'+str(j)+'=L'+str(j)+',"matching","not matching")))))'
+            formula1 = '=IF(L'+str(j)+'="AWS id not in RAMP","AWS id not in RAMP",IF(AND(OR(D'+str(j)+'="",D'+str(j)+'="NULL"),OR(L'+str(j)+'="",L'+str(j)+'="NULL")),"matching",IF(L'+str(j)+'="","",IF(D'+str(j)+'=L'+str(j)+',"matching","not matching"))))'
+            formula2 = '=IF(K'+str(j)+'="AWS id not in RAMP","AWS id not in RAMP",IF(M'+str(j)+'="matching","",IF(AND(OR(D'+str(j)+'="",D'+str(j)+'="NULL"),OR(K'+str(j)+'="",K'+str(j)+'="NULL")),"matching",IF(D'+str(j)+'=K'+str(j)+',"matching","not matching"))))'
             sheet_obj[index1]=formula1
             sheet_obj[index2]=formula2 
               
@@ -119,7 +118,7 @@ def cod(file1,attribute):
             frm1 = '=Sheet1!B'+str(j)
             frm2 = '=Sheet1!D'+str(j)
             frm3 = '=Sheet1!B'+str(j)
-            frm4 = '=Sheet1!I'+str(j)
+            frm4 = '=Sheet1!L'+str(j)
             frm5 = '=Sheet1!M'+str(j)
 
             sheet_obj1[ind1] = frm1
@@ -137,8 +136,8 @@ def cod(file1,attribute):
             frm1 = '=Sheet1!B'+str(j)
             frm2 = '=Sheet1!D'+str(j)
             frm3 = '=Sheet1!B'+str(j)
-            frm4 = '=Sheet1!L'+str(j)
-            frm5 = '=Sheet1!N'+str(j)            
+            frm4 = '=Sheet1!K'+str(j)
+            frm5 = '=Sheet1!M'+str(j)            
 
             sheet_obj1[ind1] = frm1
             sheet_obj1[ind2] = frm2
