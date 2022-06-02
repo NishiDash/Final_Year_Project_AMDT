@@ -25,7 +25,7 @@ def cod(file1,attribute):
         sheet_obj.insert_cols(0,amount=1)
         sheet_obj.insert_cols(4,amount=2)
         sheet_obj.insert_cols(8,amount=1)
-        sheet_obj.insert_cols(9,amount=1) 
+        # sheet_obj.insert_cols(9,amount=1) 
 
         
         sheet_obj['A1']='TRIM_id'
