@@ -36,8 +36,8 @@ def cod(file1,attribute):
         sheet_obj['L1']=attribute+' wrt id'
         sheet_obj['H1']='Appropriate format of R_'+attribute+' wrt id'
         sheet_obj['J1']='Appropriate format of '+attribute+' wrt id'
-        sheet_obj['M1']='R_'+attribute+'_Discrepancy'
-        sheet_obj['N1']=attribute+'_Discrepancy'
+        sheet_obj['M1']= attribute+'_Discrepancy'
+        sheet_obj['N1']= 'R_'+attribute+'_Discrepancy'
         sheet_obj['O1']='ID in AWS?'
         
         print("m,n",m,n)
@@ -137,7 +137,7 @@ def cod(file1,attribute):
             frm2 = '=Sheet1!D'+str(j)
             frm3 = '=Sheet1!B'+str(j)
             frm4 = '=Sheet1!K'+str(j)
-            frm5 = '=Sheet1!M'+str(j)            
+            frm5 = '=Sheet1!N'+str(j)            
 
             sheet_obj1[ind1] = frm1
             sheet_obj1[ind2] = frm2
