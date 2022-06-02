@@ -103,7 +103,7 @@ def cod(file1,attribute):
         for j in range(2,n):
             index1 = 'M'+str(j)
             index2 = 'N'+str(j)
-            formula1 = '=IF(L'+str(j)+'="AWS id not in RAMP","AWS id not in RAMP",IF(AND(OR(D'+str(j)+'="",D'+str(j)+'="NULL"),OR(L'+str(j)+'="",L'+str(j)+'="NULL")),"matching",IF(L'+str(j)+'="","",IF(D'+str(j)+'=L'+str(j)+',"matching","not matching"))))'
+            formula1 = '=IF(L'+str(j)+'="AWS id not in RAMP","AWS id not in RAMP",IF(AND(OR(D'+str(j)+'="",D'+str(j)+'="NULL"),OR(L'+str(j)+'="",L'+str(j)+'="NULL")),"matching",IF(D'+str(j)+'=L'+str(j)+',"matching","not matching")))'
             formula2 = '=IF(K'+str(j)+'="AWS id not in RAMP","AWS id not in RAMP",IF(M'+str(j)+'="matching","",IF(AND(OR(D'+str(j)+'="",D'+str(j)+'="NULL"),OR(K'+str(j)+'="",K'+str(j)+'="NULL")),"matching",IF(D'+str(j)+'=K'+str(j)+',"matching","not matching"))))'
             sheet_obj[index1]=formula1
             sheet_obj[index2]=formula2 
