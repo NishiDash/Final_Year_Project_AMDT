@@ -1,11 +1,10 @@
 from matplotlib.pyplot import text
-from pymysql import NULL
 import xlsxwriter
 from datetime import date;
 from colorama import Fore
 import openpyxl
 import pandas as pd
-
+from openpyxl.styles import Font
 def make(file1,attribute):
     try:
         print(Fore.RESET)
@@ -19,10 +18,10 @@ def make(file1,attribute):
         today = date.today()
 
         ws1 = obj.create_sheet("Sheet2")
-        ws1.title= "output_"+str(today)+"_make"
+        ws1.title= "output_"+str(today)
         
         sheet_obj = obj["Sheet1"]
-        sheet_obj1 = obj["output_"+str(today)+"_make"]
+        sheet_obj1 = obj["output_"+str(today)]
 
         sheet_obj['G1']='OEM Supplier'
         sheet_obj['H1']='Trim_id'
@@ -37,7 +36,14 @@ def make(file1,attribute):
         sheet_obj1['D1']=attribute+" (RAMP)"
         sheet_obj1['E1']=attribute+"_Discrepancy"
 
-        
+        ##############################FILLING##############################
+        f10 = openpyxl.styles.fills.PatternFill(start_color='FFFF00',end_color='FFFF00',fill_type='solid')
+        for y in range(1,12+1):
+            sheet_obj.cell(row=1,column=y).fill = f10
+            sheet_obj.cell(row=1,column=y).font = Font(bold=True)
+        for y in range(1,5+1):
+            sheet_obj1.cell(row=1,column=y).fill = f10
+            sheet_obj1.cell(row=1,column=y).font = Font(bold=True)
 
         for i in range(2,n):
             index='G'+str(i)

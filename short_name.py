@@ -1,108 +1,160 @@
+from turtle import st
 from matplotlib.pyplot import text
-from pymysql import NULL
 from datetime import date;
 from colorama import Fore
 import openpyxl
 import pandas as pd
+from openpyxl.styles import Font
 
 def short_name(file1,attribute):
     try:
         print(Fore.RESET)
         path = './excel files/'+file1
         df = pd.read_excel(path)
-        m = df.count()[2]+2
         n = df.count()[0]+2
-        
+        m = df.count()[2]+2
+        p = df.count()[4]+2
+        print("m,n,p",m,n,p)
         obj = openpyxl.load_workbook(path.strip())
         today = date.today()
 
         ws1 = obj.create_sheet("Sheet2")
-        ws1.title= "output_"+str(today)+"_ShortName"
+        ws1.title= "output_"+str(today)
         
         sheet_obj = obj["Sheet1"]
-        sheet_obj1 = obj["output_"+str(today)+"_ShortName"]
+        sheet_obj1 = obj["output_"+str(today)]
 
         sheet_obj.insert_cols(0,amount=1)
-        sheet_obj.insert_cols(4,amount=1)
-        sheet_obj.insert_cols(4,amount=1)
+        sheet_obj.insert_cols(3,amount=1)
+        sheet_obj.insert_cols(5,amount=1)
+        sheet_obj.insert_cols(7,amount=1)
         sheet_obj.insert_cols(9,amount=1)
+        sheet_obj.insert_cols(11,amount=1)
+        sheet_obj.insert_cols(13,amount=1)
 
-        
-        sheet_obj['A1']='TRIM_id'
-        sheet_obj['D1']='TRIM_'+attribute
-        sheet_obj['E1']='Trim_Turbine Serial Number'
-        sheet_obj['H1']=attribute+' wrt id'
-        sheet_obj['I1']='TRIM_'+attribute+' wrt id'
-        sheet_obj['J1']=attribute+'_Discrepancy'
-        sheet_obj['K1']='ID in AWS?'
-        
+        sheet_obj['A1']='trim ID'
+        sheet_obj['C1']='trim short name'
+        sheet_obj['E1']='trim Turbine_Serial_Number'
+        sheet_obj['G1']='trim pad number'
+        sheet_obj['I1']='trim Source Key'
+        sheet_obj['K1']='trim Serial number'
+        sheet_obj['M1']='trim Pad number'
+        sheet_obj['O1']='Short_name(RAMP) wrt Id'
+        sheet_obj['P1']='Short_name(Predix) wrt Id'
+        sheet_obj['Q1']='(AWS vs RAMP)'
+        sheet_obj['R1']='(AWS vs Prdeix)'
+        sheet_obj['S1']='Turbine serial number in AWS?'
+        sheet_obj['T1']='Serial number in AWS?'
 
-        sheet_obj1['A1']='Id'
-        sheet_obj1['B1']=attribute+" (AWS)"
-        sheet_obj1['C1']='Turbine Serial Number'
-        sheet_obj1['D1']=attribute+" (RAMP)"
-        sheet_obj1['E1']=attribute+'_Discrepancy'
-            
-        for j in range(2,n):
-            index1 = 'A'+str(j)
-            index2 = 'H'+str(j)
-            index3 = 'D'+str(j)
-            index4 = 'I'+str(j)
-            
-            formula1 = '=TRIM(B'+str(j)+')'
-            formula2 = '=if(ISNA(VLOOKUP(A'+str(j)+',E:G,3,FALSE)),"Id not in ramp",if(len(VLOOKUP(A'+str(j)+',E:G,3,FALSE))=0,"",VLOOKUP(A'+str(j)+',E:G,3,FALSE)))'
-            formula3 = '=trim(C'+str(j)+')'
-            formula4 = '=trim(H'+str(j)+')'
-            
-            sheet_obj[index1]= formula1
-            sheet_obj[index2]= formula2
-            sheet_obj[index3]= formula3
-            sheet_obj[index4]= formula4
-        
-        for j in range(2,n):
-            index='J'+str(j)
-            formula = '=IF(I'+str(j)+'="Id not in ramp","Id not in ramp",IF(AND(OR(D'+str(j)+'="NULL",D'+str(j)+'=""),OR(I'+str(j)+'="NULL",I'+str(j)+'="")),"matching",IF(I'+str(j)+'=D'+str(j)+',"matching","not matching")))'
-            sheet_obj[index]= formula  
-              
-        # for j in range(2,n):
-            ind1 = 'A'+str(j)
-            ind2 = 'B'+str(j)
-            ind3 = 'C'+str(j)
-            ind4 = 'D'+str(j)
-            ind5 = 'E'+str(j)
-            
+        sheet_obj1['A1']='Id(AWS)'
+        sheet_obj1['B1']='Short_name(AWS)'
+        sheet_obj1['C1']='Id(RAMP)'
+        sheet_obj1['D1']='Short_name(RAMP)'
+        sheet_obj1['E1']='Id(Predix)'
+        sheet_obj1['F1']='Short_name(Predix)'
+        sheet_obj1['G1']='(AWS vs RAMP)'
+        sheet_obj1['H1']='(AWS vs Predix)'
+        ##############################FILLING##############################
+        f10 = openpyxl.styles.fills.PatternFill(start_color='FFFF00',end_color='FFFF00',fill_type='solid')
+        for y in range(1,20+1):
+            sheet_obj.cell(row=1,column=y).fill = f10
+            sheet_obj.cell(row=1,column=y).font = Font(bold=True)
+        for y in range(1,8+1):
+            sheet_obj1.cell(row=1,column=y).fill = f10
+            sheet_obj1.cell(row=1,column=y).font = Font(bold=True)
+        for i in range(2,n):
+            i1 = 'A'+str(i)
+            i2 = 'C'+str(i)
+            i3 = 'O'+str(i)
+            i4 = 'P'+str(i)
+            i5 = 'Q'+str(i)
+            i6 = 'R'+str(i)
 
-            frm1 = '=Sheet1!B'+str(j)
-            frm2 = '=Sheet1!C'+str(j)
-            frm3 = '=Sheet1!B'+str(j)
-            frm4 = '=Sheet1!H'+str(j)
-            frm5 = '=Sheet1!J'+str(j)
-            
+            i7 = 'A'+str(i)
+            i8 = 'B'+str(i)
+            i9 = 'C'+str(i)
+            i10 = 'D'+str(i)
+            i11 = 'E'+str(i)
+            i12 = 'F'+str(i)
+            i13 = 'G'+str(i)
+            i14 = 'H'+str(i)
 
-            sheet_obj1[ind1] = frm1
-            sheet_obj1[ind2] = frm2
-            sheet_obj1[ind3] = frm3
-            sheet_obj1[ind4] = frm4
-            sheet_obj1[ind5] = frm5
-            
-        for j in range(2,m):
-            index1 = 'E'+str(j)
-            index2 = 'K'+str(j)
+            f1 = '=TRIM(B'+str(i)+')'
+            f2 = '=TRIM(D'+str(i)+')'
+            f3 = '=IF(ISNA(VLOOKUP(A'+str(i)+',E:G,3,FALSE)),"AWS id not in RAMP",IF(OR(LEN(VLOOKUP(A'+str(i)+',E:G,3,FALSE))=0,VLOOKUP(A'+str(i)+',E:G,3,FALSE)="null",VLOOKUP(A'+str(i)+',E:G,3,FALSE)="NULL"),"",VLOOKUP(A'+str(i)+',E:G,3,FALSE)))'
+            f4 = '=IF(AND(ISNA(VLOOKUP(A'+str(i)+',I:M,5,FALSE)),ISNA(VLOOKUP(A'+str(i)+',K:M,3,FALSE))),"AWS id not in Predix",IF(NOT(ISNA(VLOOKUP(A'+str(i)+',I:M,5,FALSE))),IF(OR(LEN(VLOOKUP(A'+str(i)+',I:M,5,FALSE))=0,VLOOKUP(A'+str(i)+',I:M,5,FALSE)="null",VLOOKUP(A'+str(i)+',I:M,5,FALSE)="NULL",VLOOKUP(A'+str(i)+',I:M,5,FALSE)=""),"",VLOOKUP(A'+str(i)+',I:M,5,FALSE)),IF(NOT(ISNA(VLOOKUP(A'+str(i)+',K:M,3,FALSE))),IF(OR(LEN(VLOOKUP(A'+str(i)+',K:M,3,FALSE))=0,VLOOKUP(A'+str(i)+',K:M,3,FALSE)="null",VLOOKUP(A'+str(i)+',K:M,3,FALSE)="NULL",VLOOKUP(A'+str(i)+',K:M,3,FALSE)=""),"",VLOOKUP(A'+str(i)+',K:M,3,FALSE)))))'
+            f5 = '=IF(O'+str(i)+'="AWS id not in RAMP","AWS id not in RAMP",IF(C'+str(i)+'=O'+str(i)+',"matching","not matching"))'
+            f6 = '=IF(P'+str(i)+'="AWS id not in Predix","AWS id not in Predix",IF(C'+str(i)+'=P'+str(i)+',"matching","not matching"))'
+            f7 = '=Sheet1!A'+str(i)
+            f8 = '=IF(OR(Sheet1!C'+str(i)+'="NULL",Sheet1!C'+str(i)+'="",Sheet1!C'+str(i)+'="NO_ATTRIBUTE",Sheet1!C'+str(i)+'="null),"",Sheet1!C'+str(i)+')'
+            f9 = '=Sheet1!A'+str(i)
+            f10 = '=IF(OR(Sheet1!O'+str(i)+'="NULL",Sheet1!O'+str(i)+'="",Sheet1!O'+str(i)+'="NO_ATTRIBUTE",Sheet1!O'+str(i)+'="null),"",Sheet1!O'+str(i)+')'
+            f11 = '=Sheet1!A'+str(i)
+            f12  = '=IF(OR(Sheet1!P'+str(i)+'="NULL",Sheet1!P'+str(i)+'="",Sheet1!P'+str(i)+'="NO_ATTRIBUTE",Sheet1!O'+str(i)+'="null),"",Sheet1!P'+str(i)+')'
+            f13 = '=Sheet1!Q'+str(i)
+            f14 = '=Sheet1!R'+str(i)
+            sheet_obj[i1]=f1
+            sheet_obj[i2]=f2
+            sheet_obj[i3]=f3
+            sheet_obj[i4]=f4
+            sheet_obj[i5]=f5
+            sheet_obj[i6]=f6
 
-            formula1 = '=TRIM(F'+str(j)+')'
-            formula2 = '=if(ISNA(vlookup(E'+str(j)+',A:C,3,false)),"Id not in AWS",if( len(vlookup(E'+str(j)+',A:C,3,false))=0,"",vlookup(E'+str(j)+',A:C,3,false) ))'
-        
-            sheet_obj[index1]=formula1
-            sheet_obj[index2]=formula2
+            sheet_obj1[i7]=f7
+            sheet_obj1[i8]=f8
+            sheet_obj1[i9]=f9
+            sheet_obj1[i10]=f10
+            sheet_obj1[i11]=f11
+            sheet_obj1[i12]=f12
+            sheet_obj1[i13]=f13
+            sheet_obj1[i14]=f14
+        for i in range(2,m):
+            i1 = 'E'+str(i)
+            i2 = 'G'+str(i)
+            i3 = 'S'+str(i)
+            f1 = '=TRIM(F'+str(i)+')'  
+            f2 = '=TRIM(H'+str(i)+')' 
+            f3 = '=IF(ISNA(VLOOKUP(E'+str(i)+',A:B,1,FALSE)),"RAMP id not in AWS",VLOOKUP(E'+str(i)+',A:B,1,FALSE))'
+            sheet_obj[i1]=f1
+            sheet_obj[i2]=f2
+            sheet_obj[i3]=f3
+        for i in range(2,p):
+            i1 = 'I'+str(i)
+            i2 = 'K'+str(i)
+            i3 = 'M'+str(i)
+            i4 = 'T'+str(i)
+            f1 = '=TRIM(J'+str(i)+')'
+            f2 = '=TRIM(L'+str(i)+')'
+            f3 = '=TRIM(N'+str(i)+')'
+            f4 = '=IF(AND(ISNA(VLOOKUP(I'+str(i)+',A:B,1,FALSE)),ISNA(VLOOKUP(K'+str(i)+',A:B,1,FALSE))),"Predix id not in AWS",IF(NOT(ISNA(VLOOKUP(I'+str(i)+',A:B,1,FALSE))),VLOOKUP(I'+str(i)+',A:B,1,FALSE),IF(NOT(ISNA(VLOOKUP(K'+str(i)+',A:B,1,FALSE))),VLOOKUP(K'+str(i)+',A:B,1,FALSE),"Prdeix id not in AWS")))'
+            sheet_obj[i1]=f1
+            sheet_obj[i2]=f2
+            sheet_obj[i3]=f3
+            sheet_obj[i4]=f4
+
         i=2
         for j in range(n,m+n):
             ind1 = 'C'+str(j)
             ind2 = 'D'+str(j)
-            ind3 = 'E'+str(j)
+            ind3 = 'G'+str(j)
 
-            frm1 = '=if(Sheet1!k'+str(i)+'="Id not in AWS",Sheet1!E'+str(i)+',"")'
-            frm2 = '=if(Sheet1!K'+str(i)+'="Id not in AWS","Id not in AWS","")'
-            frm3 = '=if(Sheet1!K'+str(i)+'="Id not in AWS","Id not in AWS","")'
+            frm1 = '=IF(Sheet1!S'+str(i)+'="RAMP id not in AWS",Sheet1!E'+str(i)+',"")'
+            frm2 = '=if(Sheet1!S'+str(i)+'="RAMP id not in AWS","RAMP id not in AWS","")'
+            frm3 = '=if(Sheet1!S'+str(i)+'="RAMP id not in AWS","RAMP id not in AWS","")'
+            
+            sheet_obj1[ind1]=frm1
+            sheet_obj1[ind2]=frm2
+            sheet_obj1[ind3]=frm3
+            i=i+1
+        i=2
+        for j in range(n,p+n):
+            ind1 = 'E'+str(j)
+            ind2 = 'F'+str(j)
+            ind3 = 'H'+str(j)
+
+            frm1 = '=if(Sheet1!T'+str(i)+'="Predix id not in AWS",Sheet1!I'+str(i)+',"")'
+            frm2 = '=if(Sheet1!T'+str(i)+'="Predix id not in AWS","Predix id not in AWS","")'
+            frm3 = '=if(Sheet1!T'+str(i)+'="Predix id not in AWS","Predix id not in AWS","")'
             
             sheet_obj1[ind1]=frm1
             sheet_obj1[ind2]=frm2
@@ -110,8 +162,7 @@ def short_name(file1,attribute):
             i=i+1
 
         obj.save(path)
-        
-            
+
     except Exception as e:
         print(e)
         print (Fore.RED + "Error : The file does not found")

@@ -1,9 +1,9 @@
 from matplotlib.pyplot import text
-from pymysql import NULL
 from datetime import date;
 from colorama import Fore
 import openpyxl
 import pandas as pd
+from openpyxl.styles import Font
 
 def cod(file1,attribute):
     try:
@@ -39,7 +39,7 @@ def cod(file1,attribute):
         sheet_obj['N1']=attribute+'_Discrepancy'
         sheet_obj['O1']='ID in AWS?'
         
-
+        print("m,n",m,n)
         sheet_obj1['A1']='Id'
         sheet_obj1['B1']=attribute+" (AWS)"
         sheet_obj1['C1']='Turbine Serial Number'
@@ -51,6 +51,17 @@ def cod(file1,attribute):
         sheet_obj1['I1']='Turbine Serial Number'
         sheet_obj1['J1']=attribute+" (RAMP)"
         sheet_obj1['K1']=attribute+'_Discrepancy'
+        ##############################FILLING##############################
+        f10 = openpyxl.styles.fills.PatternFill(start_color='FFFF00',end_color='FFFF00',fill_type='solid')
+        for y in range(1,15+1):
+            sheet_obj.cell(row=1,column=y).fill = f10
+            sheet_obj.cell(row=1,column=y).font = Font(bold=True)
+        for y in range(1,5+1):
+            sheet_obj1.cell(row=1,column=y).fill = f10
+            sheet_obj1.cell(row=1,column=y).font = Font(bold=True)
+        for y in range(7,11+1):
+            sheet_obj1.cell(row=1,column=y).fill = f10
+            sheet_obj1.cell(row=1,column=y).font = Font(bold=True)
             
         for j in range(2,n):
             index1 = 'A'+str(j)
