@@ -68,7 +68,8 @@ def cod(file1,attribute):
             index2 = 'D'+str(j)
             
             formula1 = '=TRIM(B'+str(j)+')'
-            formula2 = '=if(C'+str(j)+'="NULL","NULL",if(C'+str(j)+'="","",text(date(year(C'+str(j)+'),month(C'+str(j)+'),day(C'+str(j)+')),"m/d/yyyy")))'
+            formula2 = '=IF(C'+str(j)+'="NULL","",IF(C'+str(j)+'="","",IF(ISERROR(TEXT(DATE(YEAR(C'+str(j)+'),MONTH(C'+str(j)+'),DAY(C'+str(j)+')),"m/d/yyyy")),C'+str(j)+',TEXT(DATE(YEAR(C'+str(j)+'),MONTH(C'+str(j)+'),DAY(C'+str(j)+')),"m/d/yyyy"))))'
+            # =if(C'+str(j)+'="NULL","NULL",if(C'+str(j)+'="","",text(date(year(C'+str(j)+'),month(C'+str(j)+'),day(C'+str(j)+')),"m/d/yyyy")))'
             
             sheet_obj[index1]= formula1
             sheet_obj[index2]= formula2
