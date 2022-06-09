@@ -10,7 +10,7 @@ def cod(file1,attribute):
         print(Fore.RESET)
         path = './excel files/'+file1
         df = pd.read_excel(path)
-        m = df.count()[2]+2
+        m = df.count()[2]+3
         n = df.count()[0]+2
         
         obj = openpyxl.load_workbook(path.strip())

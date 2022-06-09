@@ -12,7 +12,7 @@ def short_name(file1,attribute):
         path = './excel files/'+file1
         df = pd.read_excel(path)
         n = df.count()[0]+2
-        m = df.count()[2]+2
+        m = df.count()[2]+3
         p = df.count()[4]+2
         print("m,n,p",m,n,p)
         obj = openpyxl.load_workbook(path.strip())

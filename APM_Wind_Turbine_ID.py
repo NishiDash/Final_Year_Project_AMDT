@@ -12,7 +12,7 @@ def APM(file1):
         
         df = pd.read_excel(path)
         n = df.count()[0]+2
-        m =  df.count()[2]+2
+        m =  df.count()[2]+3
         # p = df.count()[4]+2
 
         obj = openpyxl.load_workbook(path.strip())
