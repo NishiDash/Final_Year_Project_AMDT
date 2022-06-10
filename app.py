@@ -25,51 +25,8 @@ from rating import *
 from SourceKeyGenerator import *
 from SystemNumber import *
 
-# mydb = mysql.connector.connect(
-#     host = "localhost",
-#     user = "root",
-#     passwd = "cse73626N",
-#     database ="amdt"
-# )
-# mycursor = mydb.cursor()
-# mycursor.execute("use amdt")
 app = Flask(__name__)
 
-# @app.route('/home_l',methods=['GET','POST'])
-# def home_l():
-#     pwd = request.form['pwd'] 
-#     sso_id = request.form['sso_id']
-#     query = "select pwd from users where sso_id = " + sso_id
-    
-#     mycursor.execute(query)
-#     for r in mycursor:
-#         if r[0]==pwd:
-#             return render_template('index.html')
-#         else:
-#             return render_template('login.html',text="*Please verify your username or password")
-#     return render_template('register.html',text="*You are not a registered user.")          
-# @app.route('/home_r',methods=['GET','POST'])
-# def home_r():
-#     email = request.form['email']
-#     pwd = request.form['pwd'] 
-#     sso_id = request.form['sso_id']
-#     cpwd = request.form['cpwd']
-#     today = date.today()
-    
-#     if(pwd!=cpwd):
-#         return render_template('register.html',text="*The passwords don't match..!")
-#     query = "select pwd from users where sso_id = " + sso_id
-#     if(len(pwd)<8):
-#         return render_template('register.html',text="*Set minimum length of password to 8")
-#     mycursor.execute(query)
-#     for r in mycursor:
-#         return render_template('login.html',text="*You are alredy a registered user, pls Login.!")
-#     query = "Insert into users values('"+ sso_id +"','"+ email +"','"+ pwd +"','"+str(today)+"');"
-#     print(query)
-#     mycursor.execute(query) 
-#     mydb.commit()
-#     mydb.close()
-#     return render_template('index.html')
 @app.route('/',methods=['GET','POST'])
 def index():
     return render_template('LR.html') 
