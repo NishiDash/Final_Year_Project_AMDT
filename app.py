@@ -23,6 +23,7 @@ from APM_Wind_Turbine_ID import *
 from Rotor_Diammeter import *
 from rating import *
 from SourceKeyGenerator import *
+from SystemNumber import *
 
 # mydb = mysql.connector.connect(
 #     host = "localhost",
@@ -118,6 +119,8 @@ def data():
             result = rating(file1)
         elif(attribute=='SKG'):
             result = SKG(file1)
+        elif(attribute=='SN'):
+            result = SystemNumber(file1, attribute)
     return render_template('data.html',text=result)
 @app.route('/todo')
 def todo():
