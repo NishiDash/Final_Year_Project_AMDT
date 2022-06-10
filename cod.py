@@ -9,7 +9,7 @@ def cod(file1,attribute):
     try:
         print(Fore.RESET)
         path = './excel files/'+file1
-        df = pd.read_excel(path)
+        df = pd.read_excel(path,sheet_name="Sheet1")
         m = df.count()[2]+3
         n = df.count()[0]+2
         
@@ -18,7 +18,7 @@ def cod(file1,attribute):
 
         ws1 = obj.create_sheet("Sheet2")
         ws1.title= "output_"+str(today)+"_COD"
-        
+        print('n: ',n," m: ",m)
         sheet_obj = obj["Sheet1"]
         sheet_obj1 = obj["output_"+str(today)+"_COD"]
 
@@ -146,29 +146,12 @@ def cod(file1,attribute):
             sheet_obj1[ind5] = frm5
             
         
-        i=2
-        for j in range(n,m+n):
-            ind1 = 'C'+str(j)
-            ind2 = 'D'+str(j)
-            ind3 = 'E'+str(j)
-
-            frm1 = '=if(Sheet1!O'+str(i)+'="RAMP id not in AWS",Sheet1!F'+str(i)+',"")'
-            frm2 = '=if(Sheet1!O'+str(i)+'="RAMP id not in AWS","RAMP id not in AWS","")'
-            frm3 = '=if(Sheet1!O'+str(i)+'="RAMP id not in AWS","RAMP id not in AWS","")'
-            
-            sheet_obj1[ind1]=frm1
-            sheet_obj1[ind2]=frm2
-            sheet_obj1[ind3]=frm3
-
-            ind1 = 'I'+str(j)
-            ind2 = 'J'+str(j)
-            ind3 = 'K'+str(j)
-            
-            sheet_obj1[ind1]=frm1
-            sheet_obj1[ind2]=frm2
-            sheet_obj1[ind3]=frm3
-
-            i=i+1
+        i1 = 'C'+str(n)
+        i2 = 'E'+str(n)
+        f1 = 'FILTER(Sheet1!F2:F'+str(m-1)+',Sheet1!O2:O'+str(m-1)+'="RAMP id not in AWS")'
+        f2 = 'FILTER(Sheet1!O2:O'+str(m-1)+',Sheet1!O2:O'+str(m-1)+'="RAMP id not in AWS")'
+        sheet_obj1[i1]=f1
+        sheet_obj1[i2]=f2
 
         obj.save(path)
         

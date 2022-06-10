@@ -13,7 +13,7 @@ def rating(file1):
         print(Fore.RESET)
         path = './excel files/'+file1
         
-        df = pd.read_excel(path)
+        df = pd.read_excel(path,sheet_name="Sheet1")
         n = df.count()[0]+2
         m =  df.count()[2]+3
         p = df.count()[5]+2

@@ -10,7 +10,7 @@ def SKG(file):
         print(Fore.RESET)
         path = './excel files/'+file
         
-        df = pd.read_excel(path)
+        ddf = pd.read_excel(path,sheet_name="Sheet1")
         n = df.count()[0]+2
         obj = openpyxl.load_workbook(path.strip())
         sheet_obj = obj["Sheet1"]

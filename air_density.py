@@ -11,7 +11,7 @@ def air_density(file1,attribute):
         print(Fore.RESET)
         path = './excel files/'+file1
         
-        df = pd.read_excel(path)
+        df = pd.read_excel(path,sheet_name="Sheet1")
         n = df.count()[0]+2
         m =  df.count()[2]+3
         p = df.count()[4]+2
@@ -78,7 +78,7 @@ def air_density(file1,attribute):
             i1 = 'D'+str(i)
             i2 = 'P'+str(i)
             f1 = '=TRIM(E'+str(i)+')'
-            f2 = '=if(ISNA(VLOOKUP(D'+str(i)+',A:C,2,FALSE)),"RAMP id not in AWS",VLOOKUP(D'+str(i)+',A:C,2,FALSE))'
+            f2 = '=IF(AND(ISNA(VLOOKUP(G'+str(i)+',A:B,1,FALSE)),ISNA(VLOOKUP(I'+str(i)+',A:B,1,FALSE))),"Predix id not in AWS",IF(NOT(ISNA(VLOOKUP(G'+str(i)+',A:B,1,FALSE))),VLOOKUP(G'+str(i)+',A:B,1,FALSE),IF(NOT(ISNA(VLOOKUP(I'+str(i)+',A:B,1,FALSE))),VLOOKUP(I'+str(i)+',A:B,1,FALSE),"Predix id not in AWS")))'
             sheet_obj[i1]=f1
             sheet_obj[i2]=f2
             
@@ -117,35 +117,48 @@ def air_density(file1,attribute):
             sheet_obj1[i6]=f6
             sheet_obj1[i7]=f7
             sheet_obj1[i8]=f8
-        i=2
-        for j in range(n,m+n):
-            ind1 = 'C'+str(j)
-            ind2 = 'D'+str(j)
-            ind3 = 'G'+str(j)
-
-            frm1 = '=IF(Sheet1!P'+str(i)+'="RAMP id not in AWS",Sheet1!D'+str(i)+',"")'
-            frm2 = '=if(Sheet1!P'+str(i)+'="RAMP id not in AWS","RAMP id not in AWS","")'
-            frm3 = '=if(Sheet1!P'+str(i)+'="RAMP id not in AWS","RAMP id not in AWS","")'
-            
-            sheet_obj1[ind1]=frm1
-            sheet_obj1[ind2]=frm2
-            sheet_obj1[ind3]=frm3
-            i=i+1
-        i=2
-        for j in range(n,p+n):
-            ind1 = 'E'+str(j)
-            ind2 = 'F'+str(j)
-            ind3 = 'H'+str(j)
-
-            frm1 = '=if(Sheet1!Q'+str(i)+'="Predix id not in AWS",Sheet1!G'+str(i)+',"")'
-            frm2 = '=if(Sheet1!Q'+str(i)+'="Predix id not in AWS","Predix id not in AWS","")'
-            frm3 = '=if(Sheet1!Q'+str(i)+'="Predix id not in AWS","Predix id not in AWS","")'
-            
-            sheet_obj1[ind1]=frm1
-            sheet_obj1[ind2]=frm2
-            sheet_obj1[ind3]=frm3
-            i=i+1
+        i1 = 'C'+str(n)
+        i2 = 'G'+str(n)
+        i3 = 'E'+str(n)
+        i4 = 'H'+str(n)
+        f1 = 'FILTER(Sheet1!D2:D'+str(m-1)+',Sheet1!P2:P'+str(m-1)+'="RAMP id not in AWS")'
+        f2 = 'FILTER(Sheet1!P2:P'+str(m-1)+',Sheet1!P2:P'+str(m-1)+'="RAMP id not in AWS")'
+        f3 = 'FILTER(Sheet1!H2:H'+str(p-1)+',Sheet1!Q2:Q'+str(p-1)+'="Predix id not in AWS")'
+        f4 = 'FILTER(Sheet1!Q2:Q'+str(p-1)+',Sheet1!Q2:Q'+str(p-1)+'="Predix id not in AWS")'
+        sheet_obj1[i1]=f1
+        sheet_obj1[i2]=f2
+        sheet_obj1[i3]=f3
+        sheet_obj1[i4]=f4
         obj.save(path)
+        # i=2
+        # for j in range(n,m+n):
+        #     ind1 = 'C'+str(j)
+        #     ind2 = 'D'+str(j)
+        #     ind3 = 'G'+str(j)
+
+        #     frm1 = '=IF(Sheet1!P'+str(i)+'="RAMP id not in AWS",Sheet1!D'+str(i)+',"")'
+        #     frm2 = '=if(Sheet1!P'+str(i)+'="RAMP id not in AWS","RAMP id not in AWS","")'
+        #     frm3 = '=if(Sheet1!P'+str(i)+'="RAMP id not in AWS","RAMP id not in AWS","")'
+            
+        #     sheet_obj1[ind1]=frm1
+        #     sheet_obj1[ind2]=frm2
+        #     sheet_obj1[ind3]=frm3
+        #     i=i+1
+        # i=2
+        # for j in range(n,p+n):
+        #     ind1 = 'E'+str(j)
+        #     ind2 = 'F'+str(j)
+        #     ind3 = 'H'+str(j)
+
+        #     frm1 = '=if(Sheet1!Q'+str(i)+'="Predix id not in AWS",Sheet1!G'+str(i)+',"")'
+        #     frm2 = '=if(Sheet1!Q'+str(i)+'="Predix id not in AWS","Predix id not in AWS","")'
+        #     frm3 = '=if(Sheet1!Q'+str(i)+'="Predix id not in AWS","Predix id not in AWS","")'
+            
+        #     sheet_obj1[ind1]=frm1
+        #     sheet_obj1[ind2]=frm2
+        #     sheet_obj1[ind3]=frm3
+        #     i=i+1
+        
         
     except Exception as e:
         print(e)
