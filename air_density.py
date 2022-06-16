@@ -130,6 +130,35 @@ def air_density(file1,attribute):
         sheet_obj1[i3]=f3
         sheet_obj1[i4]=f4
         obj.save(path)
+        # i=2
+        # for j in range(n,m+n):
+        #     ind1 = 'C'+str(j)
+        #     ind2 = 'D'+str(j)
+        #     ind3 = 'G'+str(j)
+
+        #     frm1 = '=IF(Sheet1!P'+str(i)+'="RAMP id not in AWS",Sheet1!D'+str(i)+',"")'
+        #     frm2 = '=if(Sheet1!P'+str(i)+'="RAMP id not in AWS","RAMP id not in AWS","")'
+        #     frm3 = '=if(Sheet1!P'+str(i)+'="RAMP id not in AWS","RAMP id not in AWS","")'
+            
+        #     sheet_obj1[ind1]=frm1
+        #     sheet_obj1[ind2]=frm2
+        #     sheet_obj1[ind3]=frm3
+        #     i=i+1
+        # i=2
+        # for j in range(n,p+n):
+        #     ind1 = 'E'+str(j)
+        #     ind2 = 'F'+str(j)
+        #     ind3 = 'H'+str(j)
+
+        #     frm1 = '=if(Sheet1!Q'+str(i)+'="Predix id not in AWS",Sheet1!G'+str(i)+',"")'
+        #     frm2 = '=if(Sheet1!Q'+str(i)+'="Predix id not in AWS","Predix id not in AWS","")'
+        #     frm3 = '=if(Sheet1!Q'+str(i)+'="Predix id not in AWS","Predix id not in AWS","")'
+            
+        #     sheet_obj1[ind1]=frm1
+        #     sheet_obj1[ind2]=frm2
+        #     sheet_obj1[ind3]=frm3
+        #     i=i+1
+        
         
     except Exception as e:
         print(e)
