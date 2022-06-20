@@ -78,6 +78,7 @@ def MA(file1):
         sheet_obj3['Y1']='Model(RAMP)'
         sheet_obj3['Z1']='name (AWS)'
         sheet_obj3['AA1']='name (RAMP)'
+        sheet_obj3['AB1']='discrepancy Status'
 
         sheet_obj4['A1'] = 'trim SourceKey'
         sheet_obj4['C1'] = 'trim SerialNumber'
@@ -104,6 +105,7 @@ def MA(file1):
         sheet_obj5['R1']='Model(Predix)'
         sheet_obj5['S1']='name (AWS)'
         sheet_obj5['T1']='name (Predix)'
+        sheet_obj5['U1']='discrepancy Status'
 
         print('n',n)
         for i in range(2,n):
@@ -911,6 +913,14 @@ def MA(file1):
             sheet_obj5[index12].fill = f3
             # sheet_obj5[i14]='=IF(LEN(VLOOKUP(B'+str(j)+',Predix!A:R,18,FALSE))=0,"",VLOOKUP(B'+str(j)+',Predix!A:R,18,FALSE))' #properties.name
             j=j+1
+        
+        for i in range(2,n):
+            i1 = 'AB'+str(i)
+            i2 = 'U'+str(i)
+            f1 = '=IF(AND(C'+str(i)+'=D'+str(i)+',E'+str(i)+'=F'+str(i)+',G'+str(i)+'=H'+str(i)+',I'+str(i)+'=J'+str(i)+',K'+str(i)+'=L'+str(i)+',M'+str(i)+'=N'+str(i)+',O'+str(i)+'=P'+str(i)+',OR(Q'+str(i)+'=R'+str(i)+',Q'+str(i)+'=S'+str(i)+'),OR(T'+str(i)+'=U'+str(i)+',T'+str(i)+'=V'+str(i)+'),OR(W'+str(i)+'=X'+str(i)+',W'+str(i)+'=Y'+str(i)+'),Z'+str(i)+'=AA'+str(i)+'),"matching",IF(D'+str(i)+'="AWS id not in RAMP","AWS id not in RAMP","not matching"))'
+            f2 = '=IF(AND(C'+str(i)+'=D'+str(i)+',E'+str(i)+'=F'+str(i)+',G'+str(i)+'=H'+str(i)+',I'+str(i)+'=J'+str(i)+',K'+str(i)+'=L'+str(i)+',M'+str(i)+'=N'+str(i)+',O'+str(i)+'=P'+str(i)+',Q'+str(i)+'=R'+str(i)+',S'+str(i)+'=T'+str(i)+'),"matching",IF(D'+str(i)+'="AWS id not in Predix","AWS id not in Predix","not matching"))'
+            sheet_obj3[i1]=f1
+            sheet_obj5[i2]=f2
         print("Final Saving...")
         obj.save(path)
 
