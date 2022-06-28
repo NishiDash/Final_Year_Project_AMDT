@@ -69,10 +69,10 @@ def cod(file1,attribute):
             index2 = 'D'+str(j)
             
             formula1 = '=TRIM(B'+str(j)+')'
-            formula2 = '=IF(C'+str(j)+'="NULL","",IF(C'+str(j)+'="","",IF(ISERROR(TEXT(DATE(YEAR(C'+str(j)+'),MONTH(C'+str(j)+'),DAY(C'+str(j)+')),"m/d/yyyy")),C'+str(j)+',TEXT(DATE(YEAR(C'+str(j)+'),MONTH(C'+str(j)+'),DAY(C'+str(j)+')),"m/d/yyyy"))))'
+            formula2 = '=IF(C'+str(j)+'="NULL","",IF(C'+str(j)+'="","",IF(ISERROR(TEXT(C'+str(j)+',"yyyy-mm-dd")),C'+str(j)+',TEXT(C'+str(j)+',"yyyy-mm-dd"))))'
             
             sheet_obj[index1]= formula1
-            sheet_obj[index2]= formula2
+            sheet_obj[index2]= formula2 
 
         for j in range(2,m):
             index1 = 'E'+str(j)
@@ -92,8 +92,8 @@ def cod(file1,attribute):
 
             formula1 = '=IF(ISNA(VLOOKUP(A'+str(j)+',E:J,6,FALSE)),"AWS id not in RAMP",IF(LEN(VLOOKUP(A'+str(j)+',E:J,6,FALSE))=0,"",VLOOKUP(A'+str(j)+',E:J,6,FALSE)))'
             formula2 = '=IF(ISNA(VLOOKUP(A'+str(j)+',E:H,4,FALSE)),"AWS id not in RAMP",IF(LEN(VLOOKUP(A'+str(j)+',E:H,4,FALSE))=0,"",VLOOKUP(A'+str(j)+',E:H,4,FALSE)))'
-            formula3 = '=IF(G'+str(j)+'="NULL","",IF(G'+str(j)+'="","",IF(G'+str(j)+'="AWS id not in RAMP","AWS id not in RAMP",TEXT(DATE(YEAR(G'+str(j)+'),MONTH(G'+str(j)+'),DAY(G'+str(j)+')),"m/d/yyyy"))))'
-            formula4 = '=IF(I'+str(j)+'="NULL","",IF(I'+str(j)+'="","",IF(I'+str(j)+'="AWS id not in RAMP","AWS id not in RAMP",TEXT(DATE(YEAR(I'+str(j)+'),MONTH(I'+str(j)+'),DAY(I'+str(j)+')),"m/d/yyyy"))))'
+            formula3 = '=IF(G'+str(j)+'="NULL","",IF(G'+str(j)+'="","",IF(G'+str(j)+'="AWS id not in RAMP","AWS id not in RAMP",TEXT(G'+str(j)+',"yyyy-mm-dd"))))'
+            formula4 = '=IF(I'+str(j)+'="NULL","",IF(I'+str(j)+'="","",IF(I'+str(j)+'="AWS id not in RAMP","AWS id not in RAMP",TEXT(G'+str(j)+',"yyyy-mm-dd"))))'
 
             sheet_obj[index1]=formula1
             sheet_obj[index2]=formula2  

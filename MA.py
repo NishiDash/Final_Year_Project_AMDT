@@ -168,7 +168,7 @@ def MA(file1):
             f6 = '=IF(AWS!H'+str(i)+'="NULL","",AWS!H'+str(i)+')'
             f7 = '=IF(trim(AWS!I'+str(i)+')="NULL","",trim(AWS!I'+str(i)+'))'
             f8 = '=IF(trim(AWS!J'+str(i)+')="NULL","",trim(AWS!J'+str(i)+'))'
-            f9 = '=IF(AWS!K'+str(i)+'="NULL","",text(AWS!K'+str(i)+',"d/mm/yyyy"))'
+            f9 = '=IF(AWS!K'+str(i)+'="NULL","",text(AWS!K'+str(i)+',"yyyy-mm-dd"))'
             f10 = '=IF(AWS!L'+str(i)+'="NULL","",AWS!L'+str(i)+')'
             f11 = '=IF(AWS!M'+str(i)+'="NULL","",lower(AWS!M'+str(i)+'))'
 
@@ -219,8 +219,8 @@ def MA(file1):
             f7 = '=if(ISNA(VLOOKUP(A'+str(i)+',RAMP!A:I,9,FALSE)),"AWS id not in RAMP",if(len(VLOOKUP(A'+str(i)+',RAMP!A:I,9,FALSE))=0,"",trim(VLOOKUP(A'+str(i)+',RAMP!A:I,9,FALSE))))'#short name
             f8 = '=if(ISNA(VLOOKUP(A'+str(i)+',RAMP!A:J,10,FALSE)),"AWS id not in RAMP",if(len(VLOOKUP(A'+str(i)+',RAMP!A:J,10,FALSE))=0,"",trim(VLOOKUP(A'+str(i)+',RAMP!A:J,10,FALSE))))' #R_rating
             f9 = '=if(ISNA(VLOOKUP(A'+str(i)+',RAMP!A:K,11,FALSE)),"AWS id not in RAMP",if(len(VLOOKUP(A'+str(i)+',RAMP!A:K,11,FALSE))=0,"",trim(VLOOKUP(A'+str(i)+',RAMP!A:K,11,FALSE))))' #rating
-            f10 = '=IF(ISNA(VLOOKUP(A'+str(i)+',RAMP!A:L,12,FALSE)),"AWS id not in RAMP",IF(LEN(VLOOKUP(A'+str(i)+',RAMP!A:L,12,FALSE))=0,"",TEXT(VLOOKUP(A'+str(i)+',RAMP!A:L,12,FALSE),"d/mm/yyyy")))'#R_cod
-            f11 = '=IF(ISNA(VLOOKUP(A'+str(i)+',RAMP!A:M,13,FALSE)),"AWS id not in RAMP",IF(LEN(VLOOKUP(A'+str(i)+',RAMP!A:M,13,FALSE))=0,"",TEXT(VLOOKUP(A'+str(i)+',RAMP!A:M,13,FALSE),"d/mm/yyyy")))'#cod
+            f10 = '=IF(ISNA(VLOOKUP(A'+str(i)+',RAMP!A:L,12,FALSE)),"AWS id not in RAMP",IF(LEN(VLOOKUP(A'+str(i)+',RAMP!A:L,12,FALSE))=0,"",TEXT(VLOOKUP(A'+str(i)+',RAMP!A:L,12,FALSE),"yyyy-mm-dd")))'#R_cod
+            f11 = '=IF(ISNA(VLOOKUP(A'+str(i)+',RAMP!A:M,13,FALSE)),"AWS id not in RAMP",IF(LEN(VLOOKUP(A'+str(i)+',RAMP!A:M,13,FALSE))=0,"",TEXT(VLOOKUP(A'+str(i)+',RAMP!A:M,13,FALSE),"yyyy-mm-dd")))'#cod
             f12 = '=if(ISNA(VLOOKUP(A'+str(i)+',RAMP!A:N,14,FALSE)),"AWS id not in RAMP",if(len(VLOOKUP(A'+str(i)+',RAMP!A:N,14,FALSE))=0,"",VLOOKUP(A'+str(i)+',RAMP!A:N,14,FALSE)))'#r_model
             f13 = '=if(ISNA(VLOOKUP(A'+str(i)+',RAMP!A:O,15,FALSE)),"AWS id not in RAMP",if(len(VLOOKUP(A'+str(i)+',RAMP!A:O,15,FALSE))=0,"",VLOOKUP(A'+str(i)+',RAMP!A:O,15,FALSE)))'#model
             f14 = '=if(ISNA(VLOOKUP(A'+str(i)+',RAMP!A:R,18,FALSE)),"AWS id not in RAMP",if(len(VLOOKUP(A'+str(i)+',RAMP!A:R,18,FALSE))=0,"",lower(VLOOKUP(A'+str(i)+',RAMP!A:R,18,FALSE))))' #name
