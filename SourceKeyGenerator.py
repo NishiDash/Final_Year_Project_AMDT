@@ -19,7 +19,7 @@ def SKG(file):
         sheet_obj['C1']= 'Ready to use SourceKey'
 
         for y in range(1,3+1):
-            sheet_obj.cell(row=1,column=y).fill = f10
+            # sheet_obj.cell(row=1,column=y).fill = f10
             sheet_obj.cell(row=1,column=y).font = Font(bold=True)
 
         for i in range(2,n):

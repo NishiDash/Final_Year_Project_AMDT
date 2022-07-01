@@ -52,28 +52,28 @@ def ID_comp(file1):
     
         sheet_obj2['A2']="AWS ID not in RAMP"
         sheet_obj2['B2']="AWS ID not in Predix"
-        sheet_obj2['A2'].fill = Clr_fill
+        # sheet_obj2['A2'].fill = Clr_fill
         sheet_obj2['A2'].font = Font(bold=True)
-        sheet_obj2['B2'].fill = Clr_fill
+        # sheet_obj2['B2'].fill = Clr_fill
         sheet_obj2['B2'].font = Font(bold=True)
 
         sheet_obj2['C2']="RAMP ID not in AWS"
         sheet_obj2['D2']="RAMP ID not in Predix"
-        sheet_obj2['C2'].fill = Clr_fill
+        # sheet_obj2['C2'].fill = Clr_fill
         sheet_obj2['C2'].font = Font(bold=True)
-        sheet_obj2['D2'].fill = Clr_fill
+        # sheet_obj2['D2'].fill = Clr_fill
         sheet_obj2['D2'].font = Font(bold=True)
 
         sheet_obj2['E2']="Predix ID not in AWS"
         sheet_obj2['F2']="Predix ID not in RAMP"
-        sheet_obj2['E2'].fill = Clr_fill
+        # sheet_obj2['E2'].fill = Clr_fill
         sheet_obj2['E2'].font = Font(bold=True)
-        sheet_obj2['F2'].fill = Clr_fill
+        # sheet_obj2['F2'].fill = Clr_fill
         sheet_obj2['F2'].font = Font(bold=True)
         ##############################FILLING##############################
         f10 = openpyxl.styles.fills.PatternFill(start_color='FFFF00',end_color='FFFF00',fill_type='solid')
         for y in range(1,14+1):
-            sheet_obj1.cell(row=1,column=y).fill = f10
+            # sheet_obj1.cell(row=1,column=y).fill = f10
             sheet_obj1.cell(row=1,column=y).font = Font(bold=True)
 
         for i in range(2,n):

@@ -39,10 +39,10 @@ def make(file1,attribute):
         ##############################FILLING##############################
         f10 = openpyxl.styles.fills.PatternFill(start_color='FFFF00',end_color='FFFF00',fill_type='solid')
         for y in range(1,12+1):
-            sheet_obj.cell(row=1,column=y).fill = f10
+            # sheet_obj.cell(row=1,column=y).fill = f10
             sheet_obj.cell(row=1,column=y).font = Font(bold=True)
         for y in range(1,5+1):
-            sheet_obj1.cell(row=1,column=y).fill = f10
+            # sheet_obj1.cell(row=1,column=y).fill = f10
             sheet_obj1.cell(row=1,column=y).font = Font(bold=True)
 
         for i in range(2,n):
