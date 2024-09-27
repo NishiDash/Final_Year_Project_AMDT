@@ -10,9 +10,9 @@ def short_name(file1,attribute):
     try:
         print(Fore.RESET)
         path = './excel files/'+file1
-        df = pd.read_excel(path)
+        df = pd.read_excel(path,sheet_name="Sheet1")
         n = df.count()[0]+2
-        m = df.count()[2]+2
+        m = df.count()[2]+3
         p = df.count()[4]+2
         print("m,n,p",m,n,p)
         obj = openpyxl.load_workbook(path.strip())
@@ -57,10 +57,10 @@ def short_name(file1,attribute):
         ##############################FILLING##############################
         f10 = openpyxl.styles.fills.PatternFill(start_color='FFFF00',end_color='FFFF00',fill_type='solid')
         for y in range(1,20+1):
-            sheet_obj.cell(row=1,column=y).fill = f10
+            # sheet_obj.cell(row=1,column=y).fill = f10
             sheet_obj.cell(row=1,column=y).font = Font(bold=True)
         for y in range(1,8+1):
-            sheet_obj1.cell(row=1,column=y).fill = f10
+            # sheet_obj1.cell(row=1,column=y).fill = f10
             sheet_obj1.cell(row=1,column=y).font = Font(bold=True)
         for i in range(2,n):
             i1 = 'A'+str(i)
@@ -85,14 +85,16 @@ def short_name(file1,attribute):
             f4 = '=IF(AND(ISNA(VLOOKUP(A'+str(i)+',I:M,5,FALSE)),ISNA(VLOOKUP(A'+str(i)+',K:M,3,FALSE))),"AWS id not in Predix",IF(NOT(ISNA(VLOOKUP(A'+str(i)+',I:M,5,FALSE))),IF(OR(LEN(VLOOKUP(A'+str(i)+',I:M,5,FALSE))=0,VLOOKUP(A'+str(i)+',I:M,5,FALSE)="null",VLOOKUP(A'+str(i)+',I:M,5,FALSE)="NULL",VLOOKUP(A'+str(i)+',I:M,5,FALSE)=""),"",VLOOKUP(A'+str(i)+',I:M,5,FALSE)),IF(NOT(ISNA(VLOOKUP(A'+str(i)+',K:M,3,FALSE))),IF(OR(LEN(VLOOKUP(A'+str(i)+',K:M,3,FALSE))=0,VLOOKUP(A'+str(i)+',K:M,3,FALSE)="null",VLOOKUP(A'+str(i)+',K:M,3,FALSE)="NULL",VLOOKUP(A'+str(i)+',K:M,3,FALSE)=""),"",VLOOKUP(A'+str(i)+',K:M,3,FALSE)))))'
             f5 = '=IF(O'+str(i)+'="AWS id not in RAMP","AWS id not in RAMP",IF(C'+str(i)+'=O'+str(i)+',"matching","not matching"))'
             f6 = '=IF(P'+str(i)+'="AWS id not in Predix","AWS id not in Predix",IF(C'+str(i)+'=P'+str(i)+',"matching","not matching"))'
+            
             f7 = '=Sheet1!A'+str(i)
-            f8 = '=IF(OR(Sheet1!C'+str(i)+'="NULL",Sheet1!C'+str(i)+'="",Sheet1!C'+str(i)+'="NO_ATTRIBUTE",Sheet1!C'+str(i)+'="null),"",Sheet1!C'+str(i)+')'
+            f8 = '=IF(OR(Sheet1!C'+str(i)+'="NULL",Sheet1!C'+str(i)+'="",Sheet1!C'+str(i)+'="NO_ATTRIBUTE",Sheet1!C'+str(i)+'="null"),"",Sheet1!C'+str(i)+')'
             f9 = '=Sheet1!A'+str(i)
-            f10 = '=IF(OR(Sheet1!O'+str(i)+'="NULL",Sheet1!O'+str(i)+'="",Sheet1!O'+str(i)+'="NO_ATTRIBUTE",Sheet1!O'+str(i)+'="null),"",Sheet1!O'+str(i)+')'
+            f10 = '=IF(OR(Sheet1!O'+str(i)+'="NULL",Sheet1!O'+str(i)+'="",Sheet1!O'+str(i)+'="NO_ATTRIBUTE",Sheet1!O'+str(i)+'="null"),"",Sheet1!O'+str(i)+')'
             f11 = '=Sheet1!A'+str(i)
-            f12  = '=IF(OR(Sheet1!P'+str(i)+'="NULL",Sheet1!P'+str(i)+'="",Sheet1!P'+str(i)+'="NO_ATTRIBUTE",Sheet1!O'+str(i)+'="null),"",Sheet1!P'+str(i)+')'
+            f12  = '=IF(OR(Sheet1!P'+str(i)+'="NULL",Sheet1!P'+str(i)+'="",Sheet1!P'+str(i)+'="NO_ATTRIBUTE",Sheet1!O'+str(i)+'="null"),"",Sheet1!P'+str(i)+')'
             f13 = '=Sheet1!Q'+str(i)
             f14 = '=Sheet1!R'+str(i)
+
             sheet_obj[i1]=f1
             sheet_obj[i2]=f2
             sheet_obj[i3]=f3
@@ -132,34 +134,18 @@ def short_name(file1,attribute):
             sheet_obj[i3]=f3
             sheet_obj[i4]=f4
 
-        i=2
-        for j in range(n,m+n):
-            ind1 = 'C'+str(j)
-            ind2 = 'D'+str(j)
-            ind3 = 'G'+str(j)
-
-            frm1 = '=IF(Sheet1!S'+str(i)+'="RAMP id not in AWS",Sheet1!E'+str(i)+',"")'
-            frm2 = '=if(Sheet1!S'+str(i)+'="RAMP id not in AWS","RAMP id not in AWS","")'
-            frm3 = '=if(Sheet1!S'+str(i)+'="RAMP id not in AWS","RAMP id not in AWS","")'
-            
-            sheet_obj1[ind1]=frm1
-            sheet_obj1[ind2]=frm2
-            sheet_obj1[ind3]=frm3
-            i=i+1
-        i=2
-        for j in range(n,p+n):
-            ind1 = 'E'+str(j)
-            ind2 = 'F'+str(j)
-            ind3 = 'H'+str(j)
-
-            frm1 = '=if(Sheet1!T'+str(i)+'="Predix id not in AWS",Sheet1!I'+str(i)+',"")'
-            frm2 = '=if(Sheet1!T'+str(i)+'="Predix id not in AWS","Predix id not in AWS","")'
-            frm3 = '=if(Sheet1!T'+str(i)+'="Predix id not in AWS","Predix id not in AWS","")'
-            
-            sheet_obj1[ind1]=frm1
-            sheet_obj1[ind2]=frm2
-            sheet_obj1[ind3]=frm3
-            i=i+1
+        i1 = 'C'+str(n)
+        i2 = 'G'+str(n)
+        i3 = 'E'+str(n)
+        i4 = 'H'+str(n)
+        f1 = 'FILTER(Sheet1!E2:E'+str(m-1)+',Sheet1!S2:S'+str(m-1)+'="RAMP id not in AWS")'
+        f2 = 'FILTER(Sheet1!S2:S'+str(m-1)+',Sheet1!S2:S'+str(m-1)+'="RAMP id not in AWS")'
+        f3 = 'FILTER(Sheet1!J2:J'+str(p-1)+',Sheet1!T2:T'+str(p-1)+'="Predix id not in AWS")'
+        f4 = 'FILTER(Sheet1!T2:T'+str(p-1)+',Sheet1!T2:T'+str(p-1)+'="Predix id not in AWS")'
+        sheet_obj1[i1]=f1
+        sheet_obj1[i2]=f2
+        sheet_obj1[i3]=f3
+        sheet_obj1[i4]=f4
 
         obj.save(path)
 

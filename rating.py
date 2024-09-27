@@ -13,9 +13,9 @@ def rating(file1):
         print(Fore.RESET)
         path = './excel files/'+file1
         
-        df = pd.read_excel(path)
+        df = pd.read_excel(path,sheet_name="Sheet1")
         n = df.count()[0]+2
-        m =  df.count()[2]+2
+        m =  df.count()[2]+3
         p = df.count()[5]+2
 
         obj = openpyxl.load_workbook(path.strip())
@@ -62,14 +62,17 @@ def rating(file1):
         ##############################FILLING##############################
         f10 = openpyxl.styles.fills.PatternFill(start_color='FFFF00',end_color='FFFF00',fill_type='solid')
         for y in range(1,20+1):
-            sheet_obj.cell(row=1,column=y).fill = f10
+            # sheet_obj.cell(row=1,column=y).fill = f10
             sheet_obj.cell(row=1,column=y).font = Font(bold=True)
+        
         for y in range(1,8+1):
-            sheet_obj1.cell(row=1,column=y).fill = f10
+            # sheet_obj1.cell(row=1,column=y).fill = f10
             sheet_obj1.cell(row=1,column=y).font = Font(bold=True)
+        
         for y in range(10,14+1):
-            sheet_obj1.cell(row=1,column=y).fill = f10
+            # sheet_obj1.cell(row=1,column=y).fill = f10
             sheet_obj1.cell(row=1,column=y).font = Font(bold=True)
+        
         for i in range(2,n):
             i1 = 'A'+str(i)
             i2 = 'M'+str(i)
@@ -140,6 +143,7 @@ def rating(file1):
             f2 = '=IF(ISNA(VLOOKUP(D'+str(i)+',A:A,1,FALSE)),"RAMP id not in AWS",VLOOKUP(D'+str(i)+',A:A,1,FALSE))'
             sheet_obj[i1]=f1
             sheet_obj[i2]=f2
+        
         for i in range(2,p):
             i1 = 'H'+str(i)
             i2 = 'J'+str(i)
@@ -151,34 +155,19 @@ def rating(file1):
             sheet_obj[i2]=f2
             sheet_obj[i3]=f3
         
-        i=2
-        for j in range(n,m+n):
-            ind1 = 'C'+str(j)
-            ind2 = 'D'+str(j)
-            ind3 = 'G'+str(j)
-
-            frm1 = '=IF(Sheet1!S'+str(i)+'="RAMP id not in AWS",Sheet1!D'+str(i)+',"")'
-            frm2 = '=if(Sheet1!S'+str(i)+'="RAMP id not in AWS","RAMP id not in AWS","")'
-            frm3 = '=if(Sheet1!S'+str(i)+'="RAMP id not in AWS","RAMP id not in AWS","")'
-            
-            sheet_obj1[ind1]=frm1
-            sheet_obj1[ind2]=frm2
-            sheet_obj1[ind3]=frm3
-            i=i+1
-        i=2
-        for j in range(n,p+n):
-            ind1 = 'E'+str(j)
-            ind2 = 'F'+str(j)
-            ind3 = 'H'+str(j)
-
-            frm1 = '=if(Sheet1!T'+str(i)+'="Predix id not in AWS",Sheet1!I'+str(i)+',"")'
-            frm2 = '=if(Sheet1!T'+str(i)+'="Predix id not in AWS","Predix id not in AWS","")'
-            frm3 = '=if(Sheet1!T'+str(i)+'="Predix id not in AWS","Predix id not in AWS","")'
-            
-            sheet_obj1[ind1]=frm1
-            sheet_obj1[ind2]=frm2
-            sheet_obj1[ind3]=frm3
-            i=i+1
+        i1 = 'C'+str(n)
+        i2 = 'G'+str(n)
+        i3 = 'E'+str(n)
+        i4 = 'H'+str(n)
+        f1 = 'FILTER(Sheet1!D2:D'+str(m-1)+',Sheet1!S2:S'+str(m-1)+'="RAMP id not in AWS")'
+        f2 = 'FILTER(Sheet1!S2:S'+str(m-1)+',Sheet1!S2:S'+str(m-1)+'="RAMP id not in AWS")'
+        f3 = 'FILTER(Sheet1!I2:I'+str(p-1)+',Sheet1!T2:T'+str(p-1)+'="Predix id not in AWS")'
+        f4 = 'FILTER(Sheet1!T2:T'+str(p-1)+',Sheet1!T2:T'+str(p-1)+'="Predix id not in AWS")'
+        sheet_obj1[i1]=f1
+        sheet_obj1[i2]=f2
+        sheet_obj1[i3]=f3
+        sheet_obj1[i4]=f4
+    
         obj.save(path)
 
     except Exception as e:

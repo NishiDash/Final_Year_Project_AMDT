@@ -10,7 +10,7 @@ def SKG(file):
         print(Fore.RESET)
         path = './excel files/'+file
         
-        df = pd.read_excel(path)
+        df = pd.read_excel(path,sheet_name="Sheet1")
         n = df.count()[0]+2
         obj = openpyxl.load_workbook(path.strip())
         sheet_obj = obj["Sheet1"]
@@ -19,7 +19,7 @@ def SKG(file):
         sheet_obj['C1']= 'Ready to use SourceKey'
 
         for y in range(1,3+1):
-            sheet_obj.cell(row=1,column=y).fill = f10
+            # sheet_obj.cell(row=1,column=y).fill = f10
             sheet_obj.cell(row=1,column=y).font = Font(bold=True)
 
         for i in range(2,n):

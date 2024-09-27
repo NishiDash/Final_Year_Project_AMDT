@@ -9,8 +9,8 @@ def cod(file1,attribute):
     try:
         print(Fore.RESET)
         path = './excel files/'+file1
-        df = pd.read_excel(path)
-        m = df.count()[2]+2
+        df = pd.read_excel(path,sheet_name="Sheet1")
+        m = df.count()[2]+3
         n = df.count()[0]+2
         
         obj = openpyxl.load_workbook(path.strip())
@@ -18,7 +18,7 @@ def cod(file1,attribute):
 
         ws1 = obj.create_sheet("Sheet2")
         ws1.title= "output_"+str(today)+"_COD"
-        
+        print('n: ',n," m: ",m)
         sheet_obj = obj["Sheet1"]
         sheet_obj1 = obj["output_"+str(today)+"_COD"]
 
@@ -55,13 +55,13 @@ def cod(file1,attribute):
         ##############################FILLING##############################
         f10 = openpyxl.styles.fills.PatternFill(start_color='FFFF00',end_color='FFFF00',fill_type='solid')
         for y in range(1,15+1):
-            sheet_obj.cell(row=1,column=y).fill = f10
+            # sheet_obj.cell(row=1,column=y).fill = f10
             sheet_obj.cell(row=1,column=y).font = Font(bold=True)
         for y in range(1,5+1):
-            sheet_obj1.cell(row=1,column=y).fill = f10
+            # sheet_obj1.cell(row=1,column=y).fill = f10
             sheet_obj1.cell(row=1,column=y).font = Font(bold=True)
         for y in range(7,11+1):
-            sheet_obj1.cell(row=1,column=y).fill = f10
+            # sheet_obj1.cell(row=1,column=y).fill = f10
             sheet_obj1.cell(row=1,column=y).font = Font(bold=True)
             
         for j in range(2,n):
@@ -69,10 +69,10 @@ def cod(file1,attribute):
             index2 = 'D'+str(j)
             
             formula1 = '=TRIM(B'+str(j)+')'
-            formula2 = '=IF(C'+str(j)+'="NULL","",IF(C'+str(j)+'="","",IF(ISERROR(TEXT(DATE(YEAR(C'+str(j)+'),MONTH(C'+str(j)+'),DAY(C'+str(j)+')),"m/d/yyyy")),C'+str(j)+',TEXT(DATE(YEAR(C'+str(j)+'),MONTH(C'+str(j)+'),DAY(C'+str(j)+')),"m/d/yyyy"))))'
+            formula2 = '=IF(C'+str(j)+'="NULL","",IF(C'+str(j)+'="","",IF(ISERROR(TEXT(C'+str(j)+',"yyyy-mm-dd")),C'+str(j)+',TEXT(C'+str(j)+',"yyyy-mm-dd"))))'
             
             sheet_obj[index1]= formula1
-            sheet_obj[index2]= formula2
+            sheet_obj[index2]= formula2 
 
         for j in range(2,m):
             index1 = 'E'+str(j)
@@ -92,8 +92,8 @@ def cod(file1,attribute):
 
             formula1 = '=IF(ISNA(VLOOKUP(A'+str(j)+',E:J,6,FALSE)),"AWS id not in RAMP",IF(LEN(VLOOKUP(A'+str(j)+',E:J,6,FALSE))=0,"",VLOOKUP(A'+str(j)+',E:J,6,FALSE)))'
             formula2 = '=IF(ISNA(VLOOKUP(A'+str(j)+',E:H,4,FALSE)),"AWS id not in RAMP",IF(LEN(VLOOKUP(A'+str(j)+',E:H,4,FALSE))=0,"",VLOOKUP(A'+str(j)+',E:H,4,FALSE)))'
-            formula3 = '=IF(G'+str(j)+'="NULL","",IF(G'+str(j)+'="","",IF(G'+str(j)+'="AWS id not in RAMP","AWS id not in RAMP",TEXT(DATE(YEAR(G'+str(j)+'),MONTH(G'+str(j)+'),DAY(G'+str(j)+')),"m/d/yyyy"))))'
-            formula4 = '=IF(I'+str(j)+'="NULL","",IF(I'+str(j)+'="","",IF(I'+str(j)+'="AWS id not in RAMP","AWS id not in RAMP",TEXT(DATE(YEAR(I'+str(j)+'),MONTH(I'+str(j)+'),DAY(I'+str(j)+')),"m/d/yyyy"))))'
+            formula3 = '=IF(G'+str(j)+'="NULL","",IF(G'+str(j)+'="","",IF(G'+str(j)+'="AWS id not in RAMP","AWS id not in RAMP",TEXT(G'+str(j)+',"yyyy-mm-dd"))))'
+            formula4 = '=IF(I'+str(j)+'="NULL","",IF(I'+str(j)+'="","",IF(I'+str(j)+'="AWS id not in RAMP","AWS id not in RAMP",TEXT(G'+str(j)+',"yyyy-mm-dd"))))'
 
             sheet_obj[index1]=formula1
             sheet_obj[index2]=formula2  
@@ -146,29 +146,12 @@ def cod(file1,attribute):
             sheet_obj1[ind5] = frm5
             
         
-        i=2
-        for j in range(n,m+n):
-            ind1 = 'C'+str(j)
-            ind2 = 'D'+str(j)
-            ind3 = 'E'+str(j)
-
-            frm1 = '=if(Sheet1!O'+str(i)+'="RAMP id not in AWS",Sheet1!F'+str(i)+',"")'
-            frm2 = '=if(Sheet1!O'+str(i)+'="RAMP id not in AWS","RAMP id not in AWS","")'
-            frm3 = '=if(Sheet1!O'+str(i)+'="RAMP id not in AWS","RAMP id not in AWS","")'
-            
-            sheet_obj1[ind1]=frm1
-            sheet_obj1[ind2]=frm2
-            sheet_obj1[ind3]=frm3
-
-            ind1 = 'I'+str(j)
-            ind2 = 'J'+str(j)
-            ind3 = 'K'+str(j)
-            
-            sheet_obj1[ind1]=frm1
-            sheet_obj1[ind2]=frm2
-            sheet_obj1[ind3]=frm3
-
-            i=i+1
+        i1 = 'C'+str(n)
+        i2 = 'E'+str(n)
+        f1 = 'FILTER(Sheet1!F2:F'+str(m-1)+',Sheet1!O2:O'+str(m-1)+'="RAMP id not in AWS")'
+        f2 = 'FILTER(Sheet1!O2:O'+str(m-1)+',Sheet1!O2:O'+str(m-1)+'="RAMP id not in AWS")'
+        sheet_obj1[i1]=f1
+        sheet_obj1[i2]=f2
 
         obj.save(path)
         
